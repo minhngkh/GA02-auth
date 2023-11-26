@@ -7,7 +7,9 @@ const hbs = require("hbs");
 
 const homeRouter = require("./components/home/router");
 const authRouter = require("./components/auth/router");
+const testRouter = require("./components/test/router");
 
+// init Express app
 const app = express();
 
 // view engine setup
@@ -22,8 +24,9 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "../public")));
 
-app.use("/auth", authRouter);
 app.use("/", homeRouter);
+app.use("/auth", authRouter);
+app.use("/test", testRouter);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

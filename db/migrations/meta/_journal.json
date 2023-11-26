@@ -1,0 +1,20 @@
+{
+  "version": "5",
+  "dialect": "sqlite",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "5",
+      "when": 1701010893528,
+      "tag": "0000_military_arclight",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1701011256473,
+      "tag": "0001_sudden_namor",
+      "breakpoints": true
+    }
+  ]
+}
