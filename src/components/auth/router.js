@@ -3,7 +3,7 @@ const router = express.Router();
 
 const db = require("../../db/connection");
 const { users } = require("../../db/schema");
-const passport = require("../config/passport/passport")
+const passport = require("../../lib/passport")
 
 const { check, validationResult } = require('express-validator');
 

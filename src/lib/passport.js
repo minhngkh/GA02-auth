@@ -2,8 +2,8 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local');
 
 var crypto = require('crypto');
-const db = require("../../../db/connection");
-const { users } = require("../../../db/schema");
+const db = require("../db/client");
+const { users } = require("../db/schema");
 
 passport.serializeUser(function (user, cb) {
     process.nextTick(function () {
