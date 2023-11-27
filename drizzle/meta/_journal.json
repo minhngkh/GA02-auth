@@ -15,6 +15,13 @@
       "when": 1701011256473,
       "tag": "0001_sudden_namor",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1701115822466,
+      "tag": "0002_tired_menace",
+      "breakpoints": true
     }
   ]
 }
