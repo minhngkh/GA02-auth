@@ -1,7 +1,6 @@
 const createError = require("http-errors");
 const express = require("express");
 const path = require("path");
-const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const hbs = require("hbs");
 const passport = require("./lib/passport");
@@ -23,7 +22,6 @@ hbs.registerPartials(path.join(__dirname, "views/partials"));
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "../public")));
 
 // TODO: Implement CSRF protection
