@@ -6,7 +6,7 @@ const db = require("../db/client");
 const { users } = require("../db/schema");
 const { eq } = require("drizzle-orm");
 
-passport.use(
+passport.use("login",
   new LocalStrategy(async function verify(username, password, cb) {
     const query = await db
       .select()
@@ -42,6 +42,25 @@ passport.use(
         return cb(null, user);
       },
     );
+  }),
+);
+
+passport.use("signup",
+  new LocalStrategy(async function sign_up(username, password, cb) {
+    const query = await db
+      .select()
+      .from(users)
+      .where(eq(users.username, username))
+      .limit(1)
+      .catch((err) => {
+        return cb(err);
+      });
+
+    if (!query.length) {
+      return cb(null, username);
+    }
+
+    return cb(null, false, {message: "Username already be taken"});
   }),
 );
 

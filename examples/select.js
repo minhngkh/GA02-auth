@@ -13,6 +13,8 @@ async function getUser() {
     .limit(1);
 
   const user = query[0];
+
+  console.log(user);
   crypto.pbkdf2(
     "123456",
     user.salt,
