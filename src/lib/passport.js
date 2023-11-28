@@ -45,6 +45,26 @@ passport.use(
   }),
 );
 
+passport.use(
+  "signup",
+  new LocalStrategy(async function sign_up(username, password, cb) {
+    const query = await db
+      .select()
+      .from(users)
+      .where(eq(users.username, username))
+      .limit(1)
+      .catch((err) => {
+        return cb(err);
+      });
+
+    if (!query.length) {
+      return cb(null, username);
+    }
+
+    return cb(null, false, { message: "Username already be taken" });
+  }),
+);
+
 passport.serializeUser((user, cb) => {
   process.nextTick(() => {
     cb(null, { id: user.id, username: user.username });
