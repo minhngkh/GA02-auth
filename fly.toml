@@ -1,11 +1,11 @@
-# fly.toml app configuration file generated for ga02-auth on 2023-11-28T12:37:15+07:00
+# fly.toml app configuration file generated for ga02-auth on 2023-11-28T17:17:47+07:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
 app = "ga02-auth"
-primary_region = "sin"
-kill_timeout = 300
+primary_region = "hkg"
+kill_timeout = "5m0s"
 
 [build]
 
@@ -19,5 +19,5 @@ kill_timeout = 300
 
 [[vm]]
   cpu_kind = "shared"
-  cpus = 1
+  cpus = 2
   memory_mb = 512
