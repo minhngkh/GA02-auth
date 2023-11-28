@@ -2,20 +2,17 @@ if (process.env.NODE_ENV !== "production") {
   require("dotenv").config();
 }
 
-const os = require("os");
 const createError = require("http-errors");
 const express = require("express");
 const path = require("path");
 const logger = require("morgan");
 const hbs = require("hbs");
 const passport = require("./lib/passport");
-const session = require("express-session");
-
-const RedisStore = require("connect-redis").default;
-const RedisClient = require("./lib/redis");
+const session = require("./lib/session");
 
 const homeRouter = require("./components/home/router");
 const authRouter = require("./components/auth/router");
+const protectedRouter = require("./components/protected/router");
 const testRouter = require("./components/test/router");
 
 // init Express app
@@ -40,29 +37,12 @@ app.use(express.static(path.join(__dirname, "../public")));
 
 // TODO: Implement CSRF protection
 // setup Passport
-console.log(os.hostname());
-app.use(
-  session({
-    store: new RedisStore({ client: RedisClient }),
-    secret: process.env.SESSION_SECRET,
-    name: os.hostname(),
-    resave: false,
-    saveUninitialized: false,
-    proxy: true,
-    cookie: {
-      secure: process.env.NODE_ENV === "production",
-      httpOnly: true,
-      maxAge: 1000 * 60 * 60 * 24 * 7, // 1 week
-      sameSite: "lax",
-    },
-  }),
-); // session secret
+app.use(session);
 app.use(passport.authenticate("session")); // persistent login sessions
-
-// var models = require("./app/models");
 
 app.use("/", homeRouter);
 app.use("/auth", authRouter);
+app.use("/protected", protectedRouter);
 app.use("/test", testRouter);
 
 // catch 404 and forward to error handler
