@@ -5,7 +5,9 @@ const passport = require("../../lib/passport");
 
 const { check, validationResult } = require("express-validator");
 
-router.get("/login", (req, res, _) => {
+const authenticated = require("../../lib/authenticated");
+
+router.get("/login", authenticated.redirect("/protected"), (req, res, _) => {
   res.render("auth/login", {
     title: "Login",
     buttons: [{ name: "Register", route: "/auth/register" }],
@@ -14,7 +16,7 @@ router.get("/login", (req, res, _) => {
 
 router.post(
   "/login",
-  [check("username").notEmpty(), check("password").notEmpty()],
+  [(check("username").notEmpty(), check("password").notEmpty())],
   (req, res, next) => {
     // test validator
     const err = validationResult(req);
@@ -24,13 +26,13 @@ router.post(
     next();
   },
   passport.authenticate("local", {
-    successReturnToOrRedirect: "/",
+    successRedirect: "/protected",
     failureRedirect: "/auth/login",
     failureMessage: true,
   }),
 );
 
-router.get("/register", (req, res, _) => {
+router.get("/register", authenticated.redirect("/protected"), (req, res, _) => {
   res.render("auth/register", {
     title: "Register",
     buttons: [{ name: "Login", route: "/auth/login" }],
@@ -45,8 +47,13 @@ router.get("/login2", (req, res, _) => {
   res.send("Login failure");
 });
 
-router.get("/logout", (req, res, _) => {
-  res.send("logout page");
+router.get("/logout", (req, res, next) => {
+  req.logout((err) => {
+    if (err) {
+      return next(err);
+    }
+    res.redirect("/");
+  });
 });
 
 module.exports = router;
