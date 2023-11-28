@@ -1,6 +1,7 @@
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
 
+const hashConfig = require("../config/hashConfig");
 const crypto = require("crypto");
 const db = require("../db/client");
 const { users } = require("../db/schema");
@@ -26,9 +27,9 @@ passport.use(
     crypto.pbkdf2(
       password,
       user.salt,
-      310000,
-      32,
-      "sha256",
+      hashConfig.iterations,
+      hashConfig.hashLength,
+      hashConfig.func,
       (err, hashedPassword) => {
         if (err) {
           return cb(err);

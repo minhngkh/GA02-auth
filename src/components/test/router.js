@@ -8,24 +8,8 @@ router.get("/getAllUsers", async (req, res) => {
   res.status(200).json(response);
 });
 
-router.post("/createUser", async (req, res) => {
-  res.send("ok");
-});
-
 router.get("/crash", (_, __) => {
   throw new Error("Crash!");
-});
-
-router.get("/login1", (req, res, _) => {
-  res.send("Success");
-});
-
-router.get("/login2", (req, res, _) => {
-  res.send("Failure");
-});
-
-router.get("/alert", (req, res, _) => {
-  res.render("alert");
 });
 
 module.exports = router;
