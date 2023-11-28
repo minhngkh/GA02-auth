@@ -4,8 +4,8 @@ const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const hbs = require("hbs");
-const passport = require('passport');
-const session = require('express-session');
+const passport = require("./lib/passport");
+const session = require("express-session");
 
 const homeRouter = require("./components/home/router");
 const authRouter = require("./components/auth/router");
@@ -13,15 +13,6 @@ const testRouter = require("./components/test/router");
 
 // init Express app
 const app = express();
-
-// For Passport 
-app.use(session({
-  secret: 'keyboard cat',
-  resave: false,
-  saveUninitialized: false
-})); // session secret 
-app.use(passport.initialize());
-app.use(passport.session()); // persistent login sessions
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
@@ -35,7 +26,17 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "../public")));
 
-//Models 
+// TODO: Implement CSRF protection
+// setup Passport
+app.use(
+  session({
+    secret: "keyboard cat",
+    resave: false,
+    saveUninitialized: false,
+  }),
+); // session secret
+app.use(passport.authenticate("session")); // persistent login sessions
+
 // var models = require("./app/models");
 
 app.use("/", homeRouter);

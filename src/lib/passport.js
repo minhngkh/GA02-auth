@@ -1,36 +1,60 @@
-const passport = require('passport');
-const LocalStrategy = require('passport-local');
+const passport = require("passport");
+const LocalStrategy = require("passport-local");
 
-var crypto = require('crypto');
+const crypto = require("crypto");
 const db = require("../db/client");
 const { users } = require("../db/schema");
+const { eq } = require("drizzle-orm");
 
-passport.serializeUser(function (user, cb) {
-    process.nextTick(function () {
-        cb(null, { id: user.id, username: user.username });
-    });
-});
+passport.use(
+  new LocalStrategy(async function verify(username, password, cb) {
+    const query = await db
+      .select()
+      .from(users)
+      .where(eq(users.username, username))
+      .limit(1)
+      .catch((err) => {
+        return cb(err);
+      });
 
-passport.deserializeUser(function (user, cb) {
-    process.nextTick(function () {
+    if (!query.length) {
+      return cb(null, false, { message: "Incorrect username or password." });
+    }
+
+    const user = query[0];
+
+    crypto.pbkdf2(
+      password,
+      user.salt,
+      310000,
+      32,
+      "sha256",
+      (err, hashedPassword) => {
+        if (err) {
+          return cb(err);
+        }
+        if (!crypto.timingSafeEqual(user.hashed_password, hashedPassword)) {
+          return cb(null, false, {
+            message: "Incorrect username or password.",
+          });
+        }
+
         return cb(null, user);
-    });
+      },
+    );
+  }),
+);
+
+passport.serializeUser((user, cb) => {
+  process.nextTick(() => {
+    cb(null, { id: user.id, username: user.username });
+  });
 });
 
-module.exports = passport.use(new LocalStrategy(async function verify(username, password, cb) {
-    return cb(null, true, { message: 'Incorrect username or password.' });
-    const userList = await db.select().from(users)
+passport.deserializeUser((user, cb) => {
+  process.nextTick(() => {
+    return cb(null, user);
+  });
+});
 
-    db.get(userList, [username], function (err, row) {
-        if (err) { return cb(err); }
-        if (!row) { return cb(null, false, { message: 'Incorrect username or password.' }); }
-
-        crypto.pbkdf2(password, row.salt, 310000, 32, 'sha256', function (err, hashedPassword) {
-            if (err) { return cb(err); }
-            if (!crypto.timingSafeEqual(row.hashed_password, hashedPassword)) {
-                return cb(null, false, { message: 'Incorrect username or password.' });
-            }
-            return cb(null, row);
-        });
-    });
-}));
+module.exports = passport;
