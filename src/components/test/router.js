@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const db = require("../../db/connection");
+const db = require("../../db/client");
 const { users } = require("../../db/schema");
 
 router.get("/getAllUsers", async (req, res) => {
@@ -10,6 +10,10 @@ router.get("/getAllUsers", async (req, res) => {
 
 router.post("/createUser", async (req, res) => {
   res.send("ok");
+});
+
+router.get("/crash", (_, __) => {
+  throw new Error("Crash!");
 });
 
 module.exports = router;
