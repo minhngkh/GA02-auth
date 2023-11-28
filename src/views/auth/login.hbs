@@ -154,10 +154,18 @@
         >
           <div class="w-full p-4 sm:p-12.5 xl:p-17.5">
             <h2
-              class="mb-9 text-2xl font-bold text-black dark:text-white sm:text-title-xl2"
+              class="mb-5 text-2xl font-bold text-black dark:text-white sm:text-title-xl2"
             >
               Login
             </h2>
+
+            <div class="mb-1 font-medium text-danger">
+              {{#if errorMsg}}
+                <h3>{{errorMsg}}</h3>
+              {{else}}
+                <h3><br /></h3>
+              {{/if}}
+            </div>
 
             <form action="/auth/login" method="post">
               <div class="mb-4">

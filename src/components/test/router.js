@@ -17,11 +17,15 @@ router.get("/crash", (_, __) => {
 });
 
 router.get("/login1", (req, res, _) => {
-  res.send("Success")
-})
+  res.send("Success");
+});
 
 router.get("/login2", (req, res, _) => {
-  res.send("Failure")
-})
+  res.send("Failure");
+});
+
+router.get("/alert", (req, res, _) => {
+  res.render("alert");
+});
 
 module.exports = router;
