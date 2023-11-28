@@ -21,6 +21,9 @@ const testRouter = require("./components/test/router");
 // init Express app
 const app = express();
 
+// trust proxy
+app.set("trust proxy", 1);
+
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "hbs");
@@ -45,10 +48,12 @@ app.use(
     name: os.hostname(),
     resave: false,
     saveUninitialized: false,
+    proxy: true,
     cookie: {
       secure: process.env.NODE_ENV === "production",
+      httpOnly: true,
       maxAge: 1000 * 60 * 60 * 24 * 7, // 1 week
-      sameSite: "lax",
+      sameSite: "none",
     },
   }),
 ); // session secret
