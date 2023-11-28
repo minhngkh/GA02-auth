@@ -11,12 +11,4 @@ router.get("/", (req, res, _) => {
   });
 });
 
-router.get("/login1", (req, res, _) => {
-  res.send("Login success")
-})
-
-router.get("/login2", (req, res, _) => {
-  res.send("Login failure")
-})
-
 module.exports = router;
