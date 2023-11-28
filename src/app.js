@@ -2,6 +2,7 @@ if (process.env.NODE_ENV !== "production") {
   require("dotenv").config();
 }
 
+const os = require("os");
 const createError = require("http-errors");
 const express = require("express");
 const path = require("path");
@@ -36,10 +37,12 @@ app.use(express.static(path.join(__dirname, "../public")));
 
 // TODO: Implement CSRF protection
 // setup Passport
+console.log(os.hostname());
 app.use(
   session({
     store: new RedisStore({ client: RedisClient }),
     secret: process.env.SESSION_SECRET,
+    name: os.hostname(),
     resave: false,
     saveUninitialized: false,
     cookie: {
