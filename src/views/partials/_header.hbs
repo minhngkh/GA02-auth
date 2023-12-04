@@ -1,0 +1,122 @@
+<div class="sticky z-50 top-0 bg-white shadow-sm">
+  <div class="mx-auto max-w-7xl px-4 py-1 sm:px-6 md:py-4 lg:px-8">
+
+    <div class="flex items-center justify-between md:justify-start">
+      
+      <!-- Menu Trigger -->
+      <button
+        type="button"
+        class="-ml-2 flex h-10 w-10 items-center justify-center rounded-lg md:hidden"
+      >
+        <svg
+          class="text-gray-500 h-6 w-6"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M4 6h16M4 12h16M4 18h16"
+          />
+        </svg>
+      </button>
+      <!-- ./ Menu Trigger -->
+
+      <a href="/test" class="text-gray-700 text-2xl font-bold">MyShop.</a>
+
+      <div class="hidden flex-1 space-x-3 md:flex lg:ml-8">
+        <a
+          href="/test/productList"
+          class="hover:bg-gray-100 text-gray-400 hover:text-gray-600 rounded-lg px-2 py-2"
+        >Product</a>
+      </div>
+
+      <div class="flex items-center space-x-4">
+        <div class="relative hidden md:block">
+          <input
+            type="search"
+            class="border-gray-200 focus:border-gray-300 h-10 rounded-lg border py-1 pl-10 pr-2 leading-none focus:shadow-inner focus:outline-none"
+            placeholder="Search"
+          />
+          <svg
+            class="text-gray-300 absolute left-0 top-0 ml-2 mt-2 h-6 w-6 stroke-current"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+            />
+          </svg>
+        </div>
+
+        <a
+          href="/test/cart"
+          class="border-gray-200 hover:border-gray-300 flex h-10 items-center rounded-lg border px-2 hover:shadow-inner focus:outline-none"
+        >
+          <svg
+            class="text-gray-300 h-6 w-6 stroke-current leading-none"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"
+            />
+          </svg>
+          <span class="text-gray-500 text-md pl-1">0</span>
+        </a>
+
+        <button
+          type="button"
+          class="bg-gray-100 border-gray-200 flex hidden h-10 w-10 items-center justify-center rounded-lg border md:block"
+        >
+          <img
+            src="https://avatars.dicebear.com/api/bottts/2.svg"
+            alt="bottts"
+            width="28"
+            height="28"
+            class="mx-auto rounded-lg"
+          />
+        </button>
+      </div>
+    </div>
+
+    <!-- Search Mobile -->
+    <div class="relative md:hidden">
+      <input
+        type="search"
+        class="border-gray-200 focus:border-gray-300 mt-1 h-10 w-full rounded-lg border py-1 pl-10 pr-2 leading-none focus:shadow-inner focus:outline-none"
+        placeholder="Search"
+      />
+
+      <svg
+        class="text-gray-300 absolute left-0 top-0 ml-2 mt-3 h-6 w-6 stroke-current"
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+        />
+      </svg>
+    </div>
+    <!-- ./ Search Mobile -->
+
+  </div>
+</div>
